@@ -51,28 +51,20 @@ data_bar = function(x, y, series = NULL, type = 'bar') {
 
 data_pie = function(x, y, series = NULL, type = 'pie') {
   
-  # plot the frequencies of x when y is not provided
-  if (is.null(y)) {
-    
-    if (is.null(series)) {
-      y = table(x)
-      return(list(list(type = type, data = unname(c(y)))))
-    }
-    
-    y = table(x, series)
-    nms = colnames(y)
-    obj = list()
-    for (i in seq_len(ncol(y))) {
-      obj[[i]] = list(name = nms[i], type = type, data = unname(y[, i]))
-    }
-    return(obj)
-    
-  }
-  
-  # when y is provided, use y as the height of bars
-  if (is.null(series)) {
-    return(list(list(type = type, data = y)))
-  }
+  series = list(
+    list(
+      type = 'pie',
+      showScale = TRUE,
+      showScaleText = TRUE,
+      data = y,
+      itemStyle = list(
+        normal = list(
+          label = list(show = FALSE)
+        )
+      )
+      
+    )
+  )
   
   xy = tapply(y, list(x, series), function(z) {
     if (length(z) == 1) return(z)
