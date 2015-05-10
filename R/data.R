@@ -49,6 +49,7 @@ data_bar = function(x, y, series = NULL, type = 'bar') {
 
 }
 
+data_pie = function(x, y, series = NULL, type = 'pie') {
   
   # plot the frequencies of x when y is not provided
   if (is.null(y)) {
