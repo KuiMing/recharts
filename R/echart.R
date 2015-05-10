@@ -52,7 +52,9 @@ echart.data.frame = function(
     x = as.factor(x)
     if (is.null(y)) ylab = 'Frequency'
   }
-
+  if (type == 'pie') {
+    x = as.factor(x)
+  }
   series = evalFormula(series, data)
   data_fun = getFromNamespace(paste0('data_', type), 'recharts')
 
