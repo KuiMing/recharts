@@ -50,22 +50,20 @@ data_bar = function(x, y, series = NULL, type = 'bar') {
 }
 
 data_pie = function(x, y, series = NULL, type = 'pie') {
-  
-  series = list(
-    list(
-      type = 'pie',
-      showScale = TRUE,
-      showScaleText = TRUE,
-#       data = y,
-      itemStyle = list(
-        normal = list(
-          label = list(show = FALSE)
-        )
-      )
-      
-    )
-  )
-  
+  if (is.null(series)) {
+    return(list(list(type = type,
+                     showScale = FALSE,
+                     showScaleText = FALSE,
+                     data = y,
+                     itemStyle = list(
+                       normal = list(
+                         label = list(show = FALSE)
+                       ))
+                     )
+                )
+           )
+  }
+
   xy = tapply(y, list(x, series), function(z) {
     if (length(z) == 1) return(z)
     stop('y must only have one value corresponding to each combination of x and series')
