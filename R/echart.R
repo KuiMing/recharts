@@ -63,22 +63,31 @@ echart.data.frame = function(
     x = x, y = y
   ), TOJSON_ARGS = list(pretty = TRUE))
 
+  params$tooltip = list(
+    trigger = 'item'
+  )
+  params$calculable=TRUE
+
+  params$toolbox = list(
+    show = TRUE,
+    feature = list(
+      restore = list(show = TRUE),
+      saveAsImage = list(show = TRUE)
+    )
+  )
   if (!is.null(series)) {
     params$legend = list(data = levels(as.factor(series)))
+
   }
+  if (type=='bar'){
+    params$toolbox$feature$magicType = list(show = TRUE, type = c('bar', 'line'))
+  }
+
   if (type=='pie'){
+
     params$legend = list(
       x = 'left',
       data = x
-    )
-    params$title = list(
-      text = 'Test',
-      subtext = 'From d3.js',
-      x = 'right',
-      y = 'bottom'
-    )
-    params$tooltip = list(
-      trigger = 'item'
     )
     params$toolbox = list(
       show = TRUE,
@@ -88,15 +97,22 @@ echart.data.frame = function(
         saveAsImage = list(show = TRUE)
       )
     )
-    
   }
 
   chart = htmlwidgets::createWidget(
     'echarts', params, width = width, height = height, package = 'recharts',
     dependencies = getDependency(NULL)
   )
+  if (type=='pie'){
+    return(chart)
+  }
 
-  chart %>% eAxis('x', name = xlab) %>% eAxis('y', name = ylab)
+    chart %>%
+      eAxis('x', name = xlab,splitLine = list(show = TRUE),axisLabel = list(show = TRUE),axisLine = list(show = TRUE)) %>%
+      eAxis('y', name = ylab,splitLine = list(show = TRUE),axisLabel = list(show = TRUE),axisLine = list(show = TRUE))
+
+
+
 }
 
 #' @export
