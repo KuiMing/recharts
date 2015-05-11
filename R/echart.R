@@ -88,7 +88,7 @@ echart.data.frame = function(
         saveAsImage = list(show = TRUE)
       )
     )
-    
+    params$calculable=TRUE
   }
 
   chart = htmlwidgets::createWidget(
