@@ -97,6 +97,10 @@ echart.data.frame = function(
   )
 
   chart %>% eAxis('x', name = xlab) %>% eAxis('y', name = ylab)
+  if (type=='pie'){
+    chart$x$xAxis=NULL
+    chart$x$yAxis=NULL
+  }
 }
 
 #' @export
