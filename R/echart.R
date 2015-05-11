@@ -95,8 +95,10 @@ echart.data.frame = function(
     'echarts', params, width = width, height = height, package = 'recharts',
     dependencies = getDependency(NULL)
   )
-
-  chart %>% eAxis('x', name = xlab) %>% eAxis('y', name = ylab)
+  if (type!='pie'){
+    chart %>% eAxis('x', name = xlab) %>% eAxis('y', name = ylab)
+  }
+  
 }
 
 #' @export
