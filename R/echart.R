@@ -66,6 +66,30 @@ echart.data.frame = function(
   if (!is.null(series)) {
     params$legend = list(data = levels(as.factor(series)))
   }
+  if (type=='pie'){
+    params$legend = list(
+      x = 'left',
+      data = x
+    )
+    params$title = list(
+      text = 'Test',
+      subtext = 'From d3.js',
+      x = 'right',
+      y = 'bottom'
+    )
+    params$tooltip = list(
+      trigger = 'item'
+    )
+    params$toolbox = list(
+      show = TRUE,
+      feature = list(
+        restore = list(show = TRUE),
+        magicType = list(show = TRUE, type = c('pie', 'funnel')),
+        saveAsImage = list(show = TRUE)
+      )
+    )
+    
+  }
 
   chart = htmlwidgets::createWidget(
     'echarts', params, width = width, height = height, package = 'recharts',
