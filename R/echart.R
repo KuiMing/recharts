@@ -97,6 +97,10 @@ echart.data.frame = function(
         saveAsImage = list(show = TRUE)
       )
     )
+<<<<<<< HEAD
+=======
+    params$calculable=TRUE
+>>>>>>> origin/master
   }
 
   chart = htmlwidgets::createWidget(
