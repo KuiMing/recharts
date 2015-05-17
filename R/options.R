@@ -67,3 +67,42 @@ axisType = function(data, which = c('x', 'y')) {
   str(data)
   stop('Unable to derive the axis type automatically from the ', which, ' variable')
 }
+
+# configure of echart
+eConfig=function(params,tip=TRUE,calculable=TRUE){
+  if (tip){
+    params$tooltip = list(
+      trigger = 'item'
+    )
+  }
+
+  params$calculable=calculable
+
+  return(params)
+
+}
+# toolbox of echart
+etoolbox=function(params,type,mark=TRUE,dataView=TRUE,restore=TRUE,
+                  saveAsImage=TRUE,magicType=TRUE){
+  params$toolbox = list(
+    show = TRUE,
+    feature = list(
+      mark = list(show=mark),
+      dataView = list(show=dataView,readOnly=FALSE),
+      restore = list(show = restore),
+      saveAsImage = list(show = saveAsImage)
+    )
+  )
+  if (type=='pie' | type=='funnel'){
+    params$toolbox$feature$magicType = list(show = magicType, type = c('pie', 'funnel'))
+  }
+  if (type=='bar' | type=='line'){
+    params$toolbox$feature$magicType = list(show = magicType, type = c('bar', 'line', 'stack', 'tiled'))
+  }
+  if (type=='force' | type=='chord'){
+    params$toolbox$feature$magicType = list(show = magicType, type = c('force', 'chord'))
+  }
+  return(params)
+
+}
+

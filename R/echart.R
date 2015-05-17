@@ -63,54 +63,36 @@ echart.data.frame = function(
     x = x, y = y
   ), TOJSON_ARGS = list(pretty = TRUE))
 
-  params$tooltip = list(
-    trigger = 'item'
-  )
-  params$calculable=TRUE
 
-  params$toolbox = list(
-    show = TRUE,
-    feature = list(
-      restore = list(show = TRUE),
-      saveAsImage = list(show = TRUE)
-    )
-  )
+  params =params %>%
+  etoolbox(type,mark=TRUE,dataView=TRUE,restore=TRUE,
+           saveAsImage=TRUE,magicType=TRUE) %>%
+    eConfig(tip=TRUE,calculable=TRUE)
+  if (type=='pie' & is.null(series)){
+    series=x
+  }
+
   if (!is.null(series)) {
-    params$legend = list(data = levels(as.factor(series)))
+    params$legend = list(data = levels(as.factor(series)),
+                         x='left')
 
   }
-  if (type=='bar'){
-    params$toolbox$feature$magicType = list(show = TRUE, type = c('bar', 'line'))
-  }
 
-  if (type=='pie'){
 
-    params$legend = list(
-      x = 'left',
-      data = x
-    )
-    params$toolbox = list(
-      show = TRUE,
-      feature = list(
-        restore = list(show = TRUE),
-        magicType = list(show = TRUE, type = c('pie', 'funnel')),
-        saveAsImage = list(show = TRUE)
-      )
-    )
-
-  }
 
   chart = htmlwidgets::createWidget(
     'echarts', params, width = width, height = height, package = 'recharts',
     dependencies = getDependency(NULL)
   )
   if (type=='pie'){
+    chart$x$xAxis=NULL
+    chart$x$yAxis=NULL
     return(chart)
   }
 
     chart %>%
-      eAxis('x', name = xlab,splitLine = list(show = TRUE),axisLabel = list(show = TRUE),axisLine = list(show = TRUE)) %>%
-      eAxis('y', name = ylab,splitLine = list(show = TRUE),axisLabel = list(show = TRUE),axisLine = list(show = TRUE))
+      eAxis('x', name = xlab) %>%
+      eAxis('y', name = ylab)
 
 
 
