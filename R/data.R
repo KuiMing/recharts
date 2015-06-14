@@ -64,11 +64,7 @@ data_pie = function(x, y, series = NULL, type = 'pie') {
     return(list(list(type = type,
                      showScale = TRUE,
                      showScaleText = TRUE,
-                     data = data1,
-                     itemStyle = list(
-                       normal = list(
-                         label = list(show = FALSE)
-                       ))
+                     data = data1
                      )
                 )
            )

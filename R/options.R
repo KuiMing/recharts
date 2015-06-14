@@ -76,18 +76,20 @@ eConfig=function(params,tip=TRUE,calculable=TRUE){
     )
   }
 
+
   params$calculable=calculable
 
   return(params)
 
 }
 # toolbox of echart
-etoolbox=function(params,type,mark=TRUE,dataView=TRUE,restore=TRUE,
+etoolbox=function(params,type,mark=TRUE,dataZoom=TRUE,dataView=TRUE,restore=TRUE,
                   saveAsImage=TRUE,magicType=TRUE){
   params$toolbox = list(
     show = TRUE,
     feature = list(
       mark = list(show=mark),
+      dataZoom = list(show=dataZoom),
       dataView = list(show=dataView,readOnly=FALSE),
       restore = list(show = restore),
       saveAsImage = list(show = saveAsImage)
